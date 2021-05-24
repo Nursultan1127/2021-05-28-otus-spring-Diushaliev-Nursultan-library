@@ -36,7 +36,7 @@ class BookRepositoryImpl(
     override fun findBookById(bookId: Int): Book? =
         namedParameterJdbcOperations.query(
             SQL_FIND_BOOK_BY_ID,
-            mapOf("id" to bookId),
+            mapOf("bookId" to bookId),
             BOOK_ROW_MAPPER
         )
             .firstOrNull()
