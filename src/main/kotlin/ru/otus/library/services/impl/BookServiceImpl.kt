@@ -2,8 +2,10 @@ package ru.otus.library.services.impl
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import ru.otus.library.models.Book
-import ru.otus.library.models.dto.BookDto
+import ru.otus.library.exceptions.NotFoundException
+import ru.otus.library.models.AggregateBook
+import ru.otus.library.models.dto.AggregateBookDto
+import ru.otus.library.models.requests.BookUpdatingRequest
 import ru.otus.library.repositories.BookRepository
 import ru.otus.library.services.BookService
 
@@ -13,14 +15,16 @@ class BookServiceImpl(
 ) : BookService {
 
     @Transactional
-    override fun createBook(book: BookDto): Int =
+    override fun createBook(book: BookUpdatingRequest): Int =
         repository.createBook(book)
 
-    override fun findBookById(bookId: Int): BookDto? =
-        repository.findBookById(bookId)?.toDto()
+    override fun findBookById(bookId: Int): AggregateBookDto? =
+        repository.findBookById(bookId)
+            ?.toDto()
+            ?: throw NotFoundException("Book with id $bookId has not been found")
 
     @Transactional
-    override fun updateBook(book: BookDto) {
+    override fun updateBook(book: BookUpdatingRequest) {
         repository.updateBook(book)
     }
 
@@ -29,16 +33,16 @@ class BookServiceImpl(
         repository.deleteBookById(bookId)
     }
 
-    override fun getAllBooks(): List<BookDto> {
-        return repository.getAllBooks().map { it.toDto() }
-    }
+    override fun getAllBooks(): List<AggregateBookDto> =
+         repository.getAllBooks().map { it.toDto() }
 
-    private fun Book.toDto() =
-        BookDto(
+
+    private fun AggregateBook.toDto() =
+        AggregateBookDto(
             id = id,
             name = name,
-            genreId = genreId,
+            genreRu = genreRu,
             year = year,
-            authorId= authorId
+            authorFullName = authorFullName
         )
 }
