@@ -1,17 +1,22 @@
 package ru.otus.library.models
 
-data class Book(
-    val id: Int,
-    val name: String,
-    val genreId: Int,
-    val year: Int,
-    val authorId: Int
-)
+import javax.persistence.*
 
-data class AggregateBook(
-    val id: Int,
-    val name: String,
-    val genreRu: String,
-    val year: Int,
-    val authorFullName: String
+@Entity
+@Table(name = "books")
+data class Book(
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    val id: Int = 0,
+
+    @Column
+    val name: String = "",
+
+    @Column
+    val year: Int = 0,
+
+    @OneToMany(targetEntity = BookComment::class, cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+    @JoinColumn(name = "id")
+    val comments: List<BookComment> = emptyList()
 )

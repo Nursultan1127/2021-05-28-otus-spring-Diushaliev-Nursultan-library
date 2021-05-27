@@ -21,3 +21,11 @@ CREATE TABLE IF NOT EXISTS books
     year        int          not null,
     author_id   int          not null REFERENCES authors (id)
 );
+
+CREATE TABLE IF NOT EXISTS book_comments
+(
+    id           SERIAL       primary key,
+    book_id      int          not null REFERENCES books (id),
+    comment      text,
+    commented_at timestamp default now()
+);

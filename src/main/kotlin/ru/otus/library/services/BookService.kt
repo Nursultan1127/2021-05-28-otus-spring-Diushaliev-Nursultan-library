@@ -1,17 +1,14 @@
 package ru.otus.library.services
 
-import ru.otus.library.models.dto.AggregateBookDto
-import ru.otus.library.models.requests.BookUpdatingRequest
+import ru.otus.library.models.dto.BookDto
 
 interface BookService {
 
-    fun createBook(book: BookUpdatingRequest): Int
+    fun updateBook(bookDto: BookDto): BookDto
 
-    fun findBookById(bookId: Int): AggregateBookDto?
-
-    fun updateBook(book: BookUpdatingRequest)
+    fun findBookById(bookId: Int): BookDto?
 
     fun deleteBookById(bookId: Int)
 
-    fun getAllBooks(): List<AggregateBookDto>
+    fun getAllBooks(): List<BookDto>
 }

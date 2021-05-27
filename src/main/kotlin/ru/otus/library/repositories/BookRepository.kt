@@ -1,17 +1,15 @@
 package ru.otus.library.repositories
 
-import ru.otus.library.models.AggregateBook
-import ru.otus.library.models.requests.BookUpdatingRequest
+import ru.otus.library.models.Book
+
 
 interface BookRepository {
 
-    fun createBook(book: BookUpdatingRequest): Int
+    fun findBookById(bookId: Int): Book?
 
-    fun findBookById(bookId: Int): AggregateBook?
-
-    fun updateBook(book: BookUpdatingRequest)
+    fun updateBook(book: Book): Book
 
     fun deleteBookById(bookId: Int)
 
-    fun getAllBooks(): List<AggregateBook>
+    fun getAllBooks(): List<Book>
 }

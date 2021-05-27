@@ -1,5 +1,6 @@
 package ru.otus.library.services
 
+import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
@@ -25,55 +26,57 @@ class BookServiceTest(
 
     @Test
     fun createBook() {
-        whenever(repository.createBook(BOOK_DTO))
-            .thenReturn(BOOK_DTO.id)
+        whenever(repository.updateBook(BOOK.copy(id = 0)))
+            .thenReturn(BOOK)
 
-        val createdId = service.createBook(BOOK_DTO)
-        Assertions.assertEquals(BOOK_DTO.id, createdId)
+        val createdBook = service.updateBook(BOOK_DTO.copy(id = 0))
+        Assertions.assertEquals(BOOK_DTO.id, createdBook.id)
+        Assertions.assertEquals(BOOK_DTO.name, createdBook.name)
+        Assertions.assertEquals(BOOK_DTO.year, createdBook.year)
     }
 
     @Test
     fun findBooById() {
-        whenever(repository.findBookById(BOOK_DTO.id!!))
+        whenever(repository.findBookById(BOOK.id))
             .thenReturn(BOOK)
 
-        val bookDto = service.findBookById(BOOK_DTO.id!!)
+        val bookDto = service.findBookById(BOOK_DTO.id)
         Assertions.assertEquals(BOOK_DTO.id, bookDto!!.id)
         Assertions.assertEquals(BOOK_DTO.name, bookDto.name)
-        Assertions.assertEquals(BOOK_DTO.genreId, bookDto.genreId)
         Assertions.assertEquals(BOOK_DTO.year, bookDto.year)
-        Assertions.assertEquals(BOOK_DTO.authorId, bookDto.authorId)
     }
 
     @Test
     fun updateBook() {
-        val updatedBookDto = BOOK_DTO.copy(name = "theBook")
-        service.updateBook(updatedBookDto)
+        val updatedBook = BOOK.copy(name = "theBook")
+        whenever(repository.updateBook(updatedBook))
+            .thenReturn(updatedBook)
 
-        verify(repository, times(1)).updateBook(updatedBookDto)
+        val createdBookDto = service.updateBook(BOOK_DTO.copy(name = "theBook"))
+        Assertions.assertEquals(updatedBook.id, createdBookDto.id)
+        Assertions.assertEquals(updatedBook.name, createdBookDto.name)
+        Assertions.assertEquals(updatedBook.year, createdBookDto.year)
     }
 
     @Test
     fun deleteBookById() {
-        service.deleteBookById(BOOK_DTO.id!!)
-        verify(repository, times(1)).deleteBookById(BOOK_DTO.id!!)
+        service.deleteBookById(BOOK_DTO.id)
+        verify(repository, times(1)).deleteBookById(BOOK.id)
     }
 
     private companion object {
         val BOOK_DTO = BookDto(
             id = 1,
             name = "aBook",
-            genreId = 1,
             year = 2021,
-            authorId = 1
+            comments = emptyList()
         )
 
         val BOOK = Book(
             id = 1,
             name = "aBook",
-            genreId = 1,
             year = 2021,
-            authorId = 1
+            comments = emptyList()
         )
     }
 }
