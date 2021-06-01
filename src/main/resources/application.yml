@@ -1,0 +1,22 @@
+server:
+  port: 8083
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: Madinka2403
+    driver-class-name: org.postgresql.Driver
+    initialization-mode: always
+    schema: classpath:/schema.sql
+    data: classpath:/data.sql
+
+  jpa:
+    generate-ddl: false
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+
+logging:
+  level:
+    ROOT: ERROR
