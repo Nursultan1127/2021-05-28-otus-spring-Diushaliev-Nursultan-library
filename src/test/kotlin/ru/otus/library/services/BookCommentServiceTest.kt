@@ -14,6 +14,7 @@ import ru.otus.library.repositories.BookCommentRepository
 import ru.otus.library.services.BookServiceTest.Companion.BOOK
 import ru.otus.library.services.BookServiceTest.Companion.BOOK_DTO
 import ru.otus.library.services.impl.BookCommentServiceImpl
+import java.util.*
 
 @ExtendWith(MockitoExtension::class)
 class BookCommentServiceTest(
@@ -25,11 +26,11 @@ class BookCommentServiceTest(
 
     @Test
     fun findBookCommentById() {
-        whenever(repository.findBookCommentById(BOOK_COMMENT.id))
-            .thenReturn(BOOK_COMMENT)
+        whenever(repository.findById(BOOK_COMMENT.id))
+            .thenReturn(Optional.of(BOOK_COMMENT))
 
         val bookCommentDto = service.findBookCommentById(BOOK_COMMENT_DTO.id)
-        Assertions.assertEquals(BOOK_COMMENT_DTO.id, bookCommentDto!!.id)
+        Assertions.assertEquals(BOOK_COMMENT_DTO.id, bookCommentDto.id)
         Assertions.assertEquals(BOOK_COMMENT_DTO.book.id, bookCommentDto.book.id)
         Assertions.assertEquals(BOOK_COMMENT_DTO.comment, bookCommentDto.comment)
     }
@@ -37,7 +38,7 @@ class BookCommentServiceTest(
     @Test
     fun deleteBookCommentById() {
         service.deleteBookCommentById(BOOK_COMMENT_DTO.id)
-        verify(repository, times(1)).deleteBookCommentById(BOOK_COMMENT.id)
+        verify(repository, times(1)).deleteById(BOOK_COMMENT.id)
     }
 
     private companion object {

@@ -16,22 +16,25 @@ class BookCommentServiceImpl(
 
     @Transactional
     override fun updateBookComment(bookCommentDto: BookCommentDto): BookCommentDto {
-        val bookComment = repository.updateBookComment(bookCommentDto.toEntity())
+        val bookComment = repository.save(bookCommentDto.toEntity())
         return bookComment.toDto()
     }
 
     @Transactional(readOnly = true)
-    override fun findBookCommentById(bookCommentId: Int): BookCommentDto? =
-        repository.findBookCommentById(bookCommentId)
+    override fun findBookCommentById(bookCommentId: Int): BookCommentDto =
+        repository.findById(bookCommentId)
+            .takeIf { it.isPresent }
+            ?.get()
             ?.toDto()
             ?: throw NotFoundException("BookComment with id $bookCommentId has not been found")
 
     @Transactional
     override fun deleteBookCommentById(bookCommentId: Int) {
-        repository.deleteBookCommentById(bookCommentId)
+        repository.deleteById(bookCommentId)
     }
 
     @Transactional(readOnly = true)
     override fun getAllBookComments(): List<BookCommentDto> =
-        repository.getAllBookComments().map { it.toDto() }
+        repository.findAll()
+            .map { it.toDto() }
 }

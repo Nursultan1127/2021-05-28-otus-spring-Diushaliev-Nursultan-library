@@ -5,12 +5,7 @@ import org.springframework.transaction.annotation.Transactional
 import ru.otus.library.exceptions.NotFoundException
 import ru.otus.library.mappings.toDto
 import ru.otus.library.mappings.toEntity
-import ru.otus.library.models.Author
-import ru.otus.library.models.Book
-import ru.otus.library.models.Genre
-import ru.otus.library.models.dto.AuthorDto
 import ru.otus.library.models.dto.BookDto
-import ru.otus.library.models.dto.GenreDto
 import ru.otus.library.repositories.BookRepository
 import ru.otus.library.services.BookService
 
@@ -21,23 +16,26 @@ class BookServiceImpl(
 
     @Transactional
     override fun updateBook(bookDto: BookDto): BookDto {
-        val book = repository.updateBook(bookDto.toEntity())
+        val book = repository.save(bookDto.toEntity())
         return book.toDto()
     }
 
     @Transactional(readOnly = true)
-    override fun findBookById(bookId: Int): BookDto? =
-        repository.findBookById(bookId)
+    override fun findBookById(bookId: Int): BookDto =
+        repository.findById(bookId)
+            .takeIf { it.isPresent }
+            ?.get()
             ?.toDto()
             ?: throw NotFoundException("Book with id $bookId has not been found")
 
     @Transactional
     override fun deleteBookById(bookId: Int) {
-        repository.deleteBookById(bookId)
+        repository.deleteById(bookId)
     }
 
     @Transactional(readOnly = true)
     override fun getAllBooks(): List<BookDto> =
-         repository.getAllBooks().map { it.toDto() }
+        repository.findAll()
+            .map { it.toDto() }
 
 }

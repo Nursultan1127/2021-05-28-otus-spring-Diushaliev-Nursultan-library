@@ -16,6 +16,7 @@ import ru.otus.library.models.dto.BookDto
 import ru.otus.library.models.dto.GenreDto
 import ru.otus.library.repositories.BookRepository
 import ru.otus.library.services.impl.BookServiceImpl
+import java.util.*
 
 @ExtendWith(MockitoExtension::class)
 class BookServiceTest(
@@ -29,7 +30,7 @@ class BookServiceTest(
 
     @Test
     fun createBook() {
-        whenever(repository.updateBook(BOOK.copy(id = 0)))
+        whenever(repository.save(BOOK.copy(id = 0)))
             .thenReturn(BOOK)
 
         val createdBookDto = service.updateBook(BOOK_DTO.copy(id = 0))
@@ -50,11 +51,11 @@ class BookServiceTest(
 
     @Test
     fun findBooById() {
-        whenever(repository.findBookById(BOOK.id))
-            .thenReturn(BOOK)
+        whenever(repository.findById(BOOK.id))
+            .thenReturn(Optional.of(BOOK))
 
         val bookDto = service.findBookById(BOOK_DTO.id)
-        Assertions.assertEquals(BOOK_DTO.id, bookDto!!.id)
+        Assertions.assertEquals(BOOK_DTO.id, bookDto.id)
         Assertions.assertEquals(BOOK_DTO.name, bookDto.name)
         Assertions.assertEquals(BOOK_DTO.genre, bookDto.genre)
         Assertions.assertEquals(BOOK_DTO.year, bookDto.year)
@@ -64,7 +65,7 @@ class BookServiceTest(
     @Test
     fun updateBook() {
         val updatedBook = BOOK.copy(name = "theBook")
-        whenever(repository.updateBook(updatedBook))
+        whenever(repository.save(updatedBook))
             .thenReturn(updatedBook)
 
         val updatedBookDto = service.updateBook(BOOK_DTO.copy(name = "theBook"))
@@ -81,7 +82,7 @@ class BookServiceTest(
     @Test
     fun deleteBookById() {
         service.deleteBookById(BOOK_DTO.id)
-        verify(repository, times(1)).deleteBookById(BOOK.id)
+        verify(repository, times(1)).deleteById(BOOK.id)
     }
 
      companion object {

@@ -6,7 +6,7 @@ interface BookService {
 
     fun updateBook(bookDto: BookDto): BookDto
 
-    fun findBookById(bookId: Int): BookDto?
+    fun findBookById(bookId: Int): BookDto
 
     fun deleteBookById(bookId: Int)
 
