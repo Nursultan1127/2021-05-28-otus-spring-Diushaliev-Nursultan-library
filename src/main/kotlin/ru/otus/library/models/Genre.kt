@@ -11,9 +11,8 @@ data class Genre(
     val id: Int = 0,
 
     @Column
-    val name: String = "",
+    val name: String,
 
-    @OneToMany(targetEntity = Book::class, cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
-    @JoinColumn(name = "id")
-    val books: List<Book>
+    @OneToMany(mappedBy = "genre", fetch = FetchType.LAZY)
+    val books: List<Book> = emptyList()
 )

@@ -1,6 +1,5 @@
 package ru.otus.library.services
 
-import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
@@ -9,15 +8,10 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
-import ru.otus.library.models.Book
 import ru.otus.library.models.BookComment
 import ru.otus.library.models.dto.BookCommentDto
-import ru.otus.library.models.dto.BookDto
 import ru.otus.library.repositories.BookCommentRepository
-import ru.otus.library.repositories.BookRepository
 import ru.otus.library.services.impl.BookCommentServiceImpl
-import ru.otus.library.services.impl.BookServiceImpl
-import java.time.LocalDateTime
 
 @ExtendWith(MockitoExtension::class)
 class BookCommentServiceTest(

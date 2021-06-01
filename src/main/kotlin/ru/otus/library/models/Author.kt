@@ -11,15 +11,14 @@ data class Author(
     val id: Int = 0,
 
     @Column
-    val firstName: String = "",
+    val firstName: String,
 
     @Column
-    val lastName: String = "",
+    val lastName: String,
 
     @Column
     val middleName: String? = null,
 
-    @OneToMany(targetEntity = Book::class, cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
-    @JoinColumn(name = "id")
-    val books: List<Book>
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    val books: List<Book> = emptyList()
 )

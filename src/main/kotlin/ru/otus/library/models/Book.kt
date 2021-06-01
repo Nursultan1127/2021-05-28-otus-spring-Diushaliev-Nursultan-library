@@ -4,6 +4,11 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "books")
+@NamedEntityGraph(
+    name = "book-entity-graph",
+    attributeNodes = [NamedAttributeNode("genre"),
+                      NamedAttributeNode("author")]
+)
 data class Book(
 
     @Id
@@ -11,12 +16,16 @@ data class Book(
     val id: Int = 0,
 
     @Column
-    val name: String = "",
+    val name: String,
+
+    @ManyToOne(targetEntity = Genre::class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "genre_id")
+    val genre: Genre,
 
     @Column
-    val year: Int = 0,
+    val year: Int,
 
-    @OneToMany(targetEntity = BookComment::class, cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
-    @JoinColumn(name = "id")
-    val comments: List<BookComment> = emptyList()
+    @ManyToOne(targetEntity = Author::class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id")
+    val author: Author
 )

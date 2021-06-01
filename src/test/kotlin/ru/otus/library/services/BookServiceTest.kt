@@ -1,6 +1,5 @@
 package ru.otus.library.services
 
-import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
@@ -9,8 +8,12 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
+import ru.otus.library.models.Author
 import ru.otus.library.models.Book
+import ru.otus.library.models.Genre
+import ru.otus.library.models.dto.AuthorDto
 import ru.otus.library.models.dto.BookDto
+import ru.otus.library.models.dto.GenreDto
 import ru.otus.library.repositories.BookRepository
 import ru.otus.library.services.impl.BookServiceImpl
 
@@ -29,10 +32,20 @@ class BookServiceTest(
         whenever(repository.updateBook(BOOK.copy(id = 0)))
             .thenReturn(BOOK)
 
-        val createdBook = service.updateBook(BOOK_DTO.copy(id = 0))
-        Assertions.assertEquals(BOOK_DTO.id, createdBook.id)
-        Assertions.assertEquals(BOOK_DTO.name, createdBook.name)
-        Assertions.assertEquals(BOOK_DTO.year, createdBook.year)
+        val createdBookDto = service.updateBook(BOOK_DTO.copy(id = 0))
+        Assertions.assertEquals(BOOK_DTO.id, createdBookDto.id)
+        Assertions.assertEquals(BOOK_DTO.name, createdBookDto.name)
+        Assertions.assertEquals(BOOK_DTO.genre, createdBookDto.genre)
+        Assertions.assertEquals(BOOK_DTO.year, createdBookDto.year)
+        Assertions.assertEquals(BOOK_DTO.author, createdBookDto.author)
+        Assertions.assertEquals(BOOK_DTO.id, createdBookDto.id)
+        Assertions.assertEquals(BOOK_DTO.name, createdBookDto.name)
+        Assertions.assertEquals(BOOK_DTO.genre.id, createdBookDto.genre.id)
+        Assertions.assertEquals(BOOK_DTO.genre.name, createdBookDto.genre.name)
+        Assertions.assertEquals(BOOK_DTO.year, createdBookDto.year)
+        Assertions.assertEquals(BOOK_DTO.author.id, createdBookDto.author.id)
+        Assertions.assertEquals(BOOK_DTO.author.firstName, createdBookDto.author.firstName)
+        Assertions.assertEquals(BOOK_DTO.author.lastName, createdBookDto.author.lastName)
     }
 
     @Test
@@ -43,7 +56,9 @@ class BookServiceTest(
         val bookDto = service.findBookById(BOOK_DTO.id)
         Assertions.assertEquals(BOOK_DTO.id, bookDto!!.id)
         Assertions.assertEquals(BOOK_DTO.name, bookDto.name)
+        Assertions.assertEquals(BOOK_DTO.genre, bookDto.genre)
         Assertions.assertEquals(BOOK_DTO.year, bookDto.year)
+        Assertions.assertEquals(BOOK_DTO.author, bookDto.author)
     }
 
     @Test
@@ -52,10 +67,15 @@ class BookServiceTest(
         whenever(repository.updateBook(updatedBook))
             .thenReturn(updatedBook)
 
-        val createdBookDto = service.updateBook(BOOK_DTO.copy(name = "theBook"))
-        Assertions.assertEquals(updatedBook.id, createdBookDto.id)
-        Assertions.assertEquals(updatedBook.name, createdBookDto.name)
-        Assertions.assertEquals(updatedBook.year, createdBookDto.year)
+        val updatedBookDto = service.updateBook(BOOK_DTO.copy(name = "theBook"))
+        Assertions.assertEquals(updatedBook.id, updatedBookDto.id)
+        Assertions.assertEquals(updatedBook.name, updatedBookDto.name)
+        Assertions.assertEquals(updatedBook.genre.id, updatedBookDto.genre.id)
+        Assertions.assertEquals(updatedBook.genre.name, updatedBookDto.genre.name)
+        Assertions.assertEquals(updatedBook.year, updatedBookDto.year)
+        Assertions.assertEquals(updatedBook.author.id, updatedBookDto.author.id)
+        Assertions.assertEquals(updatedBook.author.firstName, updatedBookDto.author.firstName)
+        Assertions.assertEquals(updatedBook.author.lastName, updatedBookDto.author.lastName)
     }
 
     @Test
@@ -68,15 +88,17 @@ class BookServiceTest(
         val BOOK_DTO = BookDto(
             id = 1,
             name = "aBook",
+            genre = GenreDto(1, "Genre"),
             year = 2021,
-            comments = emptyList()
+            author = AuthorDto(1, "FirstName", "LastName")
         )
 
         val BOOK = Book(
             id = 1,
             name = "aBook",
             year = 2021,
-            comments = emptyList()
+            genre = Genre(1, "Genre"),
+            author = Author(1, "FirstName", "LastName")
         )
     }
 }

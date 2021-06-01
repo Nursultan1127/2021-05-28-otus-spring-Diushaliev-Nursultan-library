@@ -3,6 +3,7 @@ package ru.otus.library.repositories.impl
 import org.springframework.stereotype.Repository
 import ru.otus.library.models.Book
 import ru.otus.library.repositories.BookRepository
+import javax.persistence.EntityGraph
 import javax.persistence.EntityManager
 import javax.persistence.TypedQuery
 
@@ -26,14 +27,24 @@ class BookRepositoryImpl(
 
     override fun deleteBookById(bookId: Int) {
         val query = em.createQuery("delete Book b where b.id = :bookId")
-        query.setParameter("bookId", bookId)
-        query.executeUpdate()
+            .setParameter("bookId", bookId)
+            .executeUpdate()
+
+        flushAndClear()
     }
 
     override fun getAllBooks(): List<Book> {
+        val entityGraph: EntityGraph<*> = em.getEntityGraph("book-entity-graph")
         val query: TypedQuery<Book> = em.createQuery(
-            "select b from Book b left join fetch b.comments",
+            "select b from Book b",
             Book::class.java)
+            .setHint("javax.persistence.fetchgraph", entityGraph)
+
         return query.resultList
+    }
+
+    private fun flushAndClear() {
+        em.flush()
+        em.clear()
     }
 }
