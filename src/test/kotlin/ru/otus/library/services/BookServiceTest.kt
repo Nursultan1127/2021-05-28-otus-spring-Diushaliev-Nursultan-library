@@ -84,7 +84,7 @@ class BookServiceTest(
         verify(repository, times(1)).deleteBookById(BOOK.id)
     }
 
-    private companion object {
+     companion object {
         val BOOK_DTO = BookDto(
             id = 1,
             name = "aBook",

@@ -1,7 +1,6 @@
 package ru.otus.library.repositories.impl
 
 import org.springframework.stereotype.Repository
-import ru.otus.library.models.Book
 import ru.otus.library.models.BookComment
 import ru.otus.library.repositories.BookCommentRepository
 import javax.persistence.EntityManager
@@ -28,12 +27,20 @@ class BookCommentRepositoryImpl(
         val query = em.createQuery("delete BookComment bс where bс.id = :bookCommentId")
         query.setParameter("bookCommentId", bookCommentId)
         query.executeUpdate()
+
+        flushAndClear()
     }
 
     override fun getAllBookComments(): List<BookComment> {
         val query: TypedQuery<BookComment> = em.createQuery(
             "select bс from BookComment bс",
             BookComment::class.java)
+
         return query.resultList
+    }
+
+    private fun flushAndClear() {
+        em.flush()
+        em.clear()
     }
 }

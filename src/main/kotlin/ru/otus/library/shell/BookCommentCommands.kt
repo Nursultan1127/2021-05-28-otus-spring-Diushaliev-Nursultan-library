@@ -3,7 +3,6 @@ package ru.otus.library.shell
 import org.springframework.shell.standard.ShellComponent
 import org.springframework.shell.standard.ShellMethod
 import ru.otus.library.models.dto.BookCommentDto
-import ru.otus.library.models.dto.BookDto
 import ru.otus.library.services.BookCommentService
 
 @ShellComponent
