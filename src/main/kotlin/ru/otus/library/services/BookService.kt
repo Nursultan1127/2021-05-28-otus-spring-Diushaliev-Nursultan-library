@@ -1,5 +1,6 @@
 package ru.otus.library.services
 
+import ru.otus.library.models.dto.BookCommentDto
 import ru.otus.library.models.dto.BookDto
 
 interface BookService {
@@ -11,4 +12,6 @@ interface BookService {
     fun deleteBookById(bookId: Int)
 
     fun getAllBooks(): List<BookDto>
+
+    fun getAllBookComments(bookId: Int): List<BookCommentDto>
 }

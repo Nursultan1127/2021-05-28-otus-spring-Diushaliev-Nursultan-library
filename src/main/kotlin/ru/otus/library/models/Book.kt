@@ -7,7 +7,9 @@ import javax.persistence.*
 @NamedEntityGraph(
     name = "book-entity-graph",
     attributeNodes = [NamedAttributeNode("genre"),
-                      NamedAttributeNode("author")]
+                      NamedAttributeNode("author"),
+                      NamedAttributeNode("comments")
+    ]
 )
 data class Book(
 
@@ -27,5 +29,8 @@ data class Book(
 
     @ManyToOne(targetEntity = Author::class, fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
-    val author: Author
+    val author: Author,
+
+    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
+    val comments: List<BookComment> = emptyList()
 )

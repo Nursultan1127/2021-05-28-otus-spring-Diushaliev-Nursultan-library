@@ -5,12 +5,8 @@ import org.springframework.transaction.annotation.Transactional
 import ru.otus.library.exceptions.NotFoundException
 import ru.otus.library.mappings.toDto
 import ru.otus.library.mappings.toEntity
-import ru.otus.library.models.Author
-import ru.otus.library.models.Book
-import ru.otus.library.models.Genre
-import ru.otus.library.models.dto.AuthorDto
+import ru.otus.library.models.dto.BookCommentDto
 import ru.otus.library.models.dto.BookDto
-import ru.otus.library.models.dto.GenreDto
 import ru.otus.library.repositories.BookRepository
 import ru.otus.library.services.BookService
 
@@ -40,4 +36,9 @@ class BookServiceImpl(
     override fun getAllBooks(): List<BookDto> =
          repository.getAllBooks().map { it.toDto() }
 
+    @Transactional(readOnly = true)
+    override fun getAllBookComments(bookId: Int): List<BookCommentDto> =
+        repository.getAllBooks()
+            .flatMap { it.comments }
+            .map { it.toDto() }
 }

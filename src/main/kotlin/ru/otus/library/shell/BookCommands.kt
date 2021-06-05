@@ -2,6 +2,7 @@ package ru.otus.library.shell
 
 import org.springframework.shell.standard.ShellComponent
 import org.springframework.shell.standard.ShellMethod
+import ru.otus.library.models.dto.BookCommentDto
 import ru.otus.library.models.dto.BookDto
 import ru.otus.library.services.BookService
 
@@ -21,6 +22,10 @@ class BookCommands(
     @ShellMethod(value = "Reading books command", key = ["ra", "readAll"])
     fun getAllBooks(): List<BookDto> =
         service.getAllBooks()
+
+    @ShellMethod(value = "Reading books command", key = ["rac", "readAllComments"])
+    fun getAllBookComments(bookId: Int): List<BookCommentDto> =
+        service.getAllBookComments(bookId)
 
     @ShellMethod(value = "Updating book command", key = ["u", "update"])
     fun updateBook(book: BookDto) {

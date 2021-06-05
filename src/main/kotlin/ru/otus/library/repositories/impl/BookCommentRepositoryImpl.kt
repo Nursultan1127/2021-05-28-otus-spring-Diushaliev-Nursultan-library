@@ -24,11 +24,8 @@ class BookCommentRepositoryImpl(
         em.find(BookComment::class.java, bookCommentId)
 
     override fun deleteBookCommentById(bookCommentId: Int) {
-        val query = em.createQuery("delete BookComment bс where bс.id = :bookCommentId")
-        query.setParameter("bookCommentId", bookCommentId)
-        query.executeUpdate()
-
-        flushAndClear()
+        val bookComment = findBookCommentById(bookCommentId)
+        em.remove(bookComment)
     }
 
     override fun getAllBookComments(): List<BookComment> {
@@ -37,10 +34,5 @@ class BookCommentRepositoryImpl(
             BookComment::class.java)
 
         return query.resultList
-    }
-
-    private fun flushAndClear() {
-        em.flush()
-        em.clear()
     }
 }
