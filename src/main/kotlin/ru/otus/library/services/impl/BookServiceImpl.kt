@@ -40,5 +40,6 @@ class BookServiceImpl(
     override fun getAllBookComments(bookId: Int): List<BookCommentDto> =
         repository.getAllBooks()
             .flatMap { it.comments }
+            .filter { it.book.id == bookId }
             .map { it.toDto() }
 }

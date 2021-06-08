@@ -20,14 +20,14 @@ data class Book(
     @Column
     val name: String,
 
-    @ManyToOne(targetEntity = Genre::class, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "genre_id")
     val genre: Genre,
 
     @Column
     val year: Int,
 
-    @ManyToOne(targetEntity = Author::class, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
     val author: Author,
 

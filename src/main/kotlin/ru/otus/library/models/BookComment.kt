@@ -14,7 +14,7 @@ data class BookComment(
     val id: Int = 0,
 
     @Fetch(FetchMode.SELECT)
-    @ManyToOne(targetEntity = Book::class, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id")
     val book: Book,
 
