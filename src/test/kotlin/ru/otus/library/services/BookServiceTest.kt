@@ -54,7 +54,7 @@ class BookServiceTest(
             .thenReturn(BOOK)
 
         val bookDto = service.findBookById(BOOK_DTO.id)
-        Assertions.assertEquals(BOOK_DTO.id, bookDto!!.id)
+        Assertions.assertEquals(BOOK_DTO.id, bookDto.id)
         Assertions.assertEquals(BOOK_DTO.name, bookDto.name)
         Assertions.assertEquals(BOOK_DTO.genre, bookDto.genre)
         Assertions.assertEquals(BOOK_DTO.year, bookDto.year)

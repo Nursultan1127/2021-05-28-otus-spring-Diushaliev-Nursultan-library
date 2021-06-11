@@ -22,7 +22,7 @@ class BookServiceImpl(
     }
 
     @Transactional(readOnly = true)
-    override fun findBookById(bookId: Int): BookDto? =
+    override fun findBookById(bookId: Int): BookDto =
         repository.findBookById(bookId)
             ?.toDto()
             ?: throw NotFoundException("Book with id $bookId has not been found")
@@ -34,12 +34,10 @@ class BookServiceImpl(
 
     @Transactional(readOnly = true)
     override fun getAllBooks(): List<BookDto> =
-         repository.getAllBooks().map { it.toDto() }
+        repository.getAllBooks().map { it.toDto() }
 
     @Transactional(readOnly = true)
     override fun getAllBookComments(bookId: Int): List<BookCommentDto> =
-        repository.getAllBooks()
-            .flatMap { it.comments }
-            .filter { it.book.id == bookId }
+        findBookById(bookId).comments
             .map { it.toDto() }
 }
