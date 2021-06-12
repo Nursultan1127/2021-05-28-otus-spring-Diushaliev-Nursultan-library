@@ -1,18 +1,14 @@
 package ru.otus.library.models
 
-import javax.persistence.*
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
 
-@Entity
-@Table(name = "genres")
+
+@Document(collection = "genres")
 data class Genre(
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     val id: Int = 0,
-
-    @Column
     val name: String,
-
-    @OneToMany(mappedBy = "genre", fetch = FetchType.LAZY)
     val books: List<Book> = emptyList()
 )
