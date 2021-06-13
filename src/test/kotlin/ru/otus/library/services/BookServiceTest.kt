@@ -30,10 +30,10 @@ class BookServiceTest(
 
     @Test
     fun createBook() {
-        whenever(repository.save(BOOK.copy(id = 0)))
+        whenever(repository.save(BOOK.copy(id = "")))
             .thenReturn(BOOK)
 
-        val createdBookDto = service.updateBook(BOOK_DTO.copy(id = 0))
+        val createdBookDto = service.updateBook(BOOK_DTO.copy(id = ""))
         Assertions.assertEquals(BOOK_DTO.id, createdBookDto.id)
         Assertions.assertEquals(BOOK_DTO.name, createdBookDto.name)
         Assertions.assertEquals(BOOK_DTO.genre, createdBookDto.genre)
@@ -87,19 +87,19 @@ class BookServiceTest(
 
      companion object {
         val BOOK_DTO = BookDto(
-            id = 1,
+            id = "1",
             name = "aBook",
-            genre = GenreDto(1, "Genre"),
+            genre = GenreDto("1", "Genre"),
             year = 2021,
-            author = AuthorDto(1, "FirstName", "LastName")
+            author = AuthorDto("1", "FirstName", "LastName")
         )
 
         val BOOK = Book(
-            id = 1,
+            id = "1",
             name = "aBook",
             year = 2021,
-            genre = Genre(1, "Genre"),
-            author = Author(1, "FirstName", "LastName")
+            genre = Genre("1", "Genre"),
+            author = Author("1", "FirstName", "LastName")
         )
     }
 }

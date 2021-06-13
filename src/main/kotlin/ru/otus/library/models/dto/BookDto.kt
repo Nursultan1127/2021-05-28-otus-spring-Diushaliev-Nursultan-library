@@ -1,7 +1,7 @@
 package ru.otus.library.models.dto
 
 data class BookDto(
-    val id: Int,
+    val id: String,
     val name: String,
     val genre: GenreDto,
     val year: Int,

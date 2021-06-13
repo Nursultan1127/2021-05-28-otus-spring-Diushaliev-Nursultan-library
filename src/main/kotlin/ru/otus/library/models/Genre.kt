@@ -1,6 +1,7 @@
 package ru.otus.library.models
 
 import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.DBRef
 import org.springframework.data.mongodb.core.mapping.Document
 
 
@@ -8,7 +9,9 @@ import org.springframework.data.mongodb.core.mapping.Document
 data class Genre(
 
     @Id
-    val id: Int = 0,
+    val id: String = "",
     val name: String,
+
+    @DBRef
     val books: List<Book> = emptyList()
 )

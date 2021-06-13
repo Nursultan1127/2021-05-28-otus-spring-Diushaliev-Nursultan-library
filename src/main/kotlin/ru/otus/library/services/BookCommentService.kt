@@ -7,9 +7,9 @@ interface BookCommentService {
 
     fun updateBookComment(bookCommentDto: BookCommentDto): BookCommentDto
 
-    fun findBookCommentById(bookCommentId: Int): BookCommentDto?
+    fun findBookCommentById(bookCommentId: String): BookCommentDto?
 
-    fun deleteBookCommentById(bookCommentId: Int)
+    fun deleteBookCommentById(bookCommentId: String)
 
     fun getAllBookComments(): List<BookCommentDto>
 }

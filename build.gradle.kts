@@ -28,7 +28,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 //    implementation("org.liquibase:liquibase-core")
-//    implementation("org.springframework.shell:spring-shell-starter:2.0.1.RELEASE")
+    implementation("org.springframework.shell:spring-shell-starter:2.0.1.RELEASE")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.mockito:mockito-core:$mockitoVersion")

@@ -8,7 +8,7 @@ import java.util.*
 @Repository
 interface BookRepository : MongoRepository<Book, Int> {
 
-    override fun findById(id: Int): Optional<Book>
+    fun findById(id: String): Optional<Book>
 
-    override fun findAll(): List<Book>
+    fun deleteById(id: String)
 }

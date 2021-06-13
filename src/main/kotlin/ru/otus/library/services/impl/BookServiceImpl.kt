@@ -21,7 +21,7 @@ class BookServiceImpl(
     }
 
     @Transactional(readOnly = true)
-    override fun findBookById(bookId: Int): BookDto =
+    override fun findBookById(bookId: String): BookDto =
         repository.findById(bookId)
             .takeIf { it.isPresent }
             ?.get()
@@ -29,7 +29,7 @@ class BookServiceImpl(
             ?: throw NotFoundException("Book with id $bookId has not been found")
 
     @Transactional
-    override fun deleteBookById(bookId: Int) {
+    override fun deleteBookById(bookId: String) {
         repository.deleteById(bookId)
     }
 

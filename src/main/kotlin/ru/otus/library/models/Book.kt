@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document
 data class Book(
 
     @Id
-    val id: Int = 0,
+    val id: String = "",
     val name: String,
     val genre: Genre,
     val year: Int,

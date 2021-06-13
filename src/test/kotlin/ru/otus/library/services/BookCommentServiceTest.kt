@@ -43,13 +43,13 @@ class BookCommentServiceTest(
 
     private companion object {
         val BOOK_COMMENT_DTO = BookCommentDto(
-            id = 1,
+            id = "1",
             book = BOOK_DTO,
             comment = "Hello World!"
         )
 
         val BOOK_COMMENT = BookComment(
-            id = 1,
+            id = "1",
             book = BOOK,
             comment = "Hello World!"
         )

@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 data class BookComment(
 
     @Id
-    val id: Int = 0,
+    val id: String = "",
     val book: Book,
     val comment: String,
     val commentedAt: LocalDateTime = LocalDateTime.now()

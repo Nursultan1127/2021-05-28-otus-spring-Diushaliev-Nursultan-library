@@ -21,7 +21,7 @@ class BookCommentServiceImpl(
     }
 
     @Transactional(readOnly = true)
-    override fun findBookCommentById(bookCommentId: Int): BookCommentDto =
+    override fun findBookCommentById(bookCommentId: String): BookCommentDto =
         repository.findById(bookCommentId)
             .takeIf { it.isPresent }
             ?.get()
@@ -29,7 +29,7 @@ class BookCommentServiceImpl(
             ?: throw NotFoundException("BookComment with id $bookCommentId has not been found")
 
     @Transactional
-    override fun deleteBookCommentById(bookCommentId: Int) {
+    override fun deleteBookCommentById(bookCommentId: String) {
         repository.deleteById(bookCommentId)
     }
 
