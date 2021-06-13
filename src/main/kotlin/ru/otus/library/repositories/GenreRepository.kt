@@ -5,4 +5,4 @@ import org.springframework.stereotype.Repository
 import ru.otus.library.models.Genre
 
 @Repository
-interface GenreRepository : MongoRepository<Genre, Int>
+interface GenreRepository : MongoRepository<Genre, String>

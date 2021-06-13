@@ -5,4 +5,4 @@ import org.springframework.stereotype.Repository
 import ru.otus.library.models.Author
 
 @Repository
-interface AuthorRepository : MongoRepository<Author, Int>
+interface AuthorRepository : MongoRepository<Author, String>
