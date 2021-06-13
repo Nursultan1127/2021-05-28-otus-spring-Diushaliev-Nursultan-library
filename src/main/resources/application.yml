@@ -8,7 +8,9 @@ spring:
       database: library
       port: 27017
       host: localhost
+      username: nursd
+      password: Madinka2403
 
-logging:
-  level:
-    ROOT: ERROR
+#logging:
+#  level:
+#    ROOT: ERROR
