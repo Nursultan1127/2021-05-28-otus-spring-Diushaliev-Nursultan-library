@@ -7,11 +7,8 @@ import org.springframework.data.mongodb.core.mapping.Document
 
 @Document(collection = "genres")
 data class Genre(
-
     @Id
     val id: String = "",
     val name: String,
-
-    @DBRef
     val books: List<Book> = emptyList()
 )

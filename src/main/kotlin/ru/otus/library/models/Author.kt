@@ -12,7 +12,5 @@ data class Author(
     val firstName: String,
     val lastName: String,
     val middleName: String? = null,
-
-    @DBRef
     val books: List<Book> = emptyList()
 )

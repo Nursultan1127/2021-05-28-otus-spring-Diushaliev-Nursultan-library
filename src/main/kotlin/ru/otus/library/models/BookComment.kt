@@ -6,7 +6,6 @@ import java.time.LocalDateTime
 
 @Document(collection = "book_comments")
 data class BookComment(
-
     @Id
     val id: String = "",
     val book: Book,
