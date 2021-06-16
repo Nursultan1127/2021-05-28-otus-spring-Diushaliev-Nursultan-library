@@ -27,6 +27,10 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+//    implementation("com.github.mongobee:mongobee:0.13")
+    implementation("com.github.cloudyrock.mongock:mongock-bom:4.1.19")
+    implementation("com.github.cloudyrock.mongock:mongock-spring-v5:4.1.19")
+    implementation("com.github.cloudyrock.mongock:mongodb-springdata-v3-driver:4.1.19")
 //    implementation("org.liquibase:liquibase-core")
     implementation("org.springframework.shell:spring-shell-starter:2.0.1.RELEASE")
 

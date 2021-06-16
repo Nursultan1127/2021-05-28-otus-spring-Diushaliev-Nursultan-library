@@ -12,7 +12,6 @@ import ru.otus.library.models.BookComment
 import ru.otus.library.models.dto.BookCommentDto
 import ru.otus.library.repositories.BookCommentRepository
 import ru.otus.library.services.BookServiceTest.Companion.BOOK
-import ru.otus.library.services.BookServiceTest.Companion.BOOK_DTO
 import ru.otus.library.services.impl.BookCommentServiceImpl
 import java.util.*
 
@@ -31,7 +30,7 @@ class BookCommentServiceTest(
 
         val bookCommentDto = service.findBookCommentById(BOOK_COMMENT_DTO.id)
         Assertions.assertEquals(BOOK_COMMENT_DTO.id, bookCommentDto.id)
-        Assertions.assertEquals(BOOK_COMMENT_DTO.book.id, bookCommentDto.book.id)
+        Assertions.assertEquals(BOOK_COMMENT_DTO.bookId, bookCommentDto.bookId)
         Assertions.assertEquals(BOOK_COMMENT_DTO.comment, bookCommentDto.comment)
     }
 
@@ -44,13 +43,13 @@ class BookCommentServiceTest(
     private companion object {
         val BOOK_COMMENT_DTO = BookCommentDto(
             id = "1",
-            book = BOOK_DTO,
+            bookId = BOOK.id,
             comment = "Hello World!"
         )
 
         val BOOK_COMMENT = BookComment(
             id = "1",
-            book = BOOK,
+            bookId = BOOK.id,
             comment = "Hello World!"
         )
     }

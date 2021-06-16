@@ -1,6 +1,7 @@
 package ru.otus.library.models
 
 import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.DBRef
 import org.springframework.data.mongodb.core.mapping.Document
 import java.time.LocalDateTime
 
@@ -8,7 +9,10 @@ import java.time.LocalDateTime
 data class BookComment(
     @Id
     val id: String = "",
-    val book: Book,
+
+    @DBRef
+    val bookId: String,
+
     val comment: String,
     val commentedAt: LocalDateTime = LocalDateTime.now()
 )

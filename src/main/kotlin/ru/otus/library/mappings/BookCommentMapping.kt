@@ -6,7 +6,7 @@ import ru.otus.library.models.dto.BookCommentDto
 fun BookComment.toDto() =
     BookCommentDto(
         id = id,
-        book = book.toDto(),
+        bookId = bookId,
         comment = comment,
         commentedAt = commentedAt
     )
@@ -14,7 +14,7 @@ fun BookComment.toDto() =
 fun BookCommentDto.toEntity() =
     BookComment(
         id = id,
-        book = book.toEntity(),
+        bookId = bookId,
         comment = comment,
         commentedAt = commentedAt
     )
