@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "mongock.change-logs-scan-package=com.programming.techie.mongo.config",
+      "type": "java.lang.String",
+      "description": "Description for mongock.change-logs-scan-package=com.programming.techie.mongo.config."
+  }
+] }
